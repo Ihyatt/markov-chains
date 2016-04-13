@@ -37,20 +37,28 @@ def make_chains(text_string):
 
 def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
-
     text = ""
-    current_key = choice(chains.keys())
-    text += current_key[0]  + " " + current_key[1] + " "
+    current_key = None
+    
+    while True:
+        current_key = choice(chains.keys())
+        if current_key[0].istitle():
+            text += current_key[0] + " " + current_key[1] + " "
+            break
 
     while True:
             if current_key == ("Sam", "I"):
                 text += chains[current_key][0]
                 break
-                
+            
+               
+
             chosen_word = choice(chains[current_key])
             text += chosen_word + " "
             new_key = (current_key[1], chosen_word)
             current_key = new_key
+            if "?" in chosen_word:
+                break
             
     return text
 
